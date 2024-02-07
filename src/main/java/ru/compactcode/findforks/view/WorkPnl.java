@@ -5,6 +5,7 @@
 package ru.compactcode.findforks.view;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,7 +14,9 @@ import javax.swing.table.DefaultTableModel;
  * @author dim
  */
 public class WorkPnl extends javax.swing.JPanel {
-    DefaultTableModel tableModel = new DefaultTableModel(); 
+
+    DefaultTableModel tableModel = new DefaultTableModel();
+
     /**
      * Creates new form WorkPnl
      */
@@ -62,7 +65,6 @@ public class WorkPnl extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -128,14 +130,14 @@ public class WorkPnl extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addComponent(fldRows, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
@@ -144,16 +146,15 @@ public class WorkPnl extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
-       
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int rows = (int) fldRows.getValue();
         int cols = (int) fldColumns.getValue();
-//        jTable1.setModel(new DefaultTableModel(rows, cols));
-//        tableModel = (DefaultTableModel) jTable1.getModel();
+        jTable1.setModel(new DefaultTableModel(rows, cols));
+        tableModel = (DefaultTableModel) jTable1.getModel();
 //        
 //        // Заголовки столбцов
 //        ArrayList<String> columnHeader = new ArrayList<>();
@@ -161,29 +162,35 @@ public class WorkPnl extends javax.swing.JPanel {
 //        for (int i = 1; i < cols; i++) {
 //            columnHeader.add("b"+i);
 //        }
-        
-        Object[][] array = new String[][]{};
-        // Данные для таблицы на основе Vector
-        Vector<Vector<String>> data = new Vector<Vector<String>>(rows);
-        // Вектор с заголовками столбцов
-        Vector<String> header = new Vector<String>(cols);
-        // Формирование в цикле массива данных
-        for (int j = 0; j < cols; j++) {
-            header.add("b"+j);
-            Vector<String> row = new Vector<String>();
-            for (int i = 0; i < rows; i++) {
-                //row.add((String)array[j][i]);
-                row.add("123");
-            }
-            data.add(row);
-        }
-        tableModel.setDataVector(data, header);
-        jTable1.setModel(tableModel);
+
+//        Object[][] array = new String[][]{};
+//        // Данные для таблицы на основе Vector
+//        Vector<Vector<String>> data = new Vector<Vector<String>>(cols);
+////        Vector<String> command = new Vector<String>();
+////        data.add(command);
+//        // Вектор с заголовками столбцов
+//        Vector<String> header = new Vector<String>(cols);
+//        header.add("");
+//        // Формирование в цикле массива данных
+//        for (int j = 1; j < cols; j++) {
+//            header.add("b" + j);
+//
+//            Vector<String> row = new Vector<String>(rows);
+//            row.add("");
+//            for (int i = 0; i < rows; i++) {
+//                //row.add((String)array[j][i]);
+//                row.add(String.valueOf(getRandomNum()));
+//            }
+//
+//            data.add(row);
+//        }
+//        tableModel.setDataVector(data, header);
+//        jTable1.setModel(tableModel);
 //        Random r= new Random();
 //        float f;
 //        int a = (int) (Math.random() * 5);
 //        int b = (int) (Math.random() * 10);
-//        f = r.nextFloat()+a;
+//      r.nextFloat()+a;
 //        jTextField1.setText(String.valueOf(f));
 //        f = r.nextFloat()+a;
 //        jTextField2.setText(String.valueOf(f));
@@ -196,7 +203,13 @@ public class WorkPnl extends javax.swing.JPanel {
 //        f = r.nextFloat()+b;
 //        jTextField6.setText(String.valueOf(f));
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    public float getRandomNum() {
+        Random r= new Random();
+        int a = (int) (Math.random() * 5);
+        int b = (int) (Math.random() * 10);
+        
+        return r.nextFloat()+a;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner fldColumns;
