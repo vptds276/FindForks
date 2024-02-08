@@ -155,14 +155,16 @@ public class WorkPnl extends javax.swing.JPanel {
         int cols = (int) fldColumns.getValue();
         jTable1.setModel(new DefaultTableModel(rows, cols));
         tableModel = (DefaultTableModel) jTable1.getModel();
-//        
-//        // Заголовки столбцов
-//        ArrayList<String> columnHeader = new ArrayList<>();
-//        columnHeader.add("Команды");
-//        for (int i = 1; i < cols; i++) {
-//            columnHeader.add("b"+i);
-//        }
-
+        
+       
+        
+        // Вектор с заголовками столбцов
+        Vector<String> header = new Vector<String>(cols);
+        header.add("123");
+        for (int i = 1; i < cols; i++) {
+            header.add("b"+i);
+        }
+        tableModel.setColumnIdentifiers(header);
 //        Object[][] array = new String[][]{};
 //        // Данные для таблицы на основе Vector
 //        Vector<Vector<String>> data = new Vector<Vector<String>>(cols);
