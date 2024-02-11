@@ -4,6 +4,7 @@
  */
 package ru.compactcode.findforks.view;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
@@ -16,12 +17,14 @@ import javax.swing.table.DefaultTableModel;
 public class WorkPnl extends javax.swing.JPanel {
 
     DefaultTableModel tableModel = new DefaultTableModel();
+    String formattedDouble;
 
     /**
      * Creates new form WorkPnl
      */
     public WorkPnl() {
         initComponents();
+        begSett((int) fldRows.getValue(), (int) fldColumns.getValue());
     }
 
     /**
@@ -88,7 +91,11 @@ public class WorkPnl extends javax.swing.JPanel {
 
         jLabel4.setText("Количество букмекеров:");
 
+        fldColumns.setModel(new javax.swing.SpinnerNumberModel(3, 3, null, 1));
+
         jLabel5.setText("Количество команд:");
+
+        fldRows.setModel(new javax.swing.SpinnerNumberModel(3, 3, null, 3));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -146,71 +153,61 @@ public class WorkPnl extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-
+        tableModel = (DefaultTableModel) jTable1.getModel();
+        int r = (int) fldRows.getValue();
+        int c = (int) fldColumns.getValue();
+        
+        float[][] m = new float[r][c-1];
+        
+        for (int i = 0; i < r; i++) {
+            
+            for (int j = 1; j < c; j++) {
+                String p =  tableModel.getValueAt(i, j).toString();
+                p = p.replace(",", ".");
+                m[i][j-1] = Float.parseFloat(p);
+        
+            }
+        }
+        
+        for (int i = 0; i < r; i++) {
+            for (int j =0; j < c-1; j++) {
+                System.out.print(m[i][j]+" ");
+            }
+            System.out.println("");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int rows = (int) fldRows.getValue();
-        int cols = (int) fldColumns.getValue();
+    public void begSett(int rows, int cols) {
         jTable1.setModel(new DefaultTableModel(rows, cols));
         tableModel = (DefaultTableModel) jTable1.getModel();
-        
-       
-        
         // Вектор с заголовками столбцов
         Vector<String> header = new Vector<String>(cols);
-        header.add("123");
+        header.add("Name command");
         for (int i = 1; i < cols; i++) {
-            header.add("b"+i);
+            header.add("b" + i);
         }
         tableModel.setColumnIdentifiers(header);
-//        Object[][] array = new String[][]{};
-//        // Данные для таблицы на основе Vector
-//        Vector<Vector<String>> data = new Vector<Vector<String>>(cols);
-////        Vector<String> command = new Vector<String>();
-////        data.add(command);
-//        // Вектор с заголовками столбцов
-//        Vector<String> header = new Vector<String>(cols);
-//        header.add("");
-//        // Формирование в цикле массива данных
-//        for (int j = 1; j < cols; j++) {
-//            header.add("b" + j);
-//
-//            Vector<String> row = new Vector<String>(rows);
-//            row.add("");
-//            for (int i = 0; i < rows; i++) {
-//                //row.add((String)array[j][i]);
-//                row.add(String.valueOf(getRandomNum()));
-//            }
-//
-//            data.add(row);
-//        }
-//        tableModel.setDataVector(data, header);
-//        jTable1.setModel(tableModel);
-//        Random r= new Random();
-//        float f;
-//        int a = (int) (Math.random() * 5);
-//        int b = (int) (Math.random() * 10);
-//      r.nextFloat()+a;
-//        jTextField1.setText(String.valueOf(f));
-//        f = r.nextFloat()+a;
-//        jTextField2.setText(String.valueOf(f));
-//        f = r.nextFloat()+b;
-//        jTextField3.setText(String.valueOf(f));
-//        f = r.nextFloat()+a;
-//        jTextField4.setText(String.valueOf(f));
-//        f = r.nextFloat()+a;
-//        jTextField5.setText(String.valueOf(f));
-//        f = r.nextFloat()+b;
-//        jTextField6.setText(String.valueOf(f));
+    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        tableModel = (DefaultTableModel) jTable1.getModel();
+        int r = (int) fldRows.getValue();
+        int c = (int) fldColumns.getValue();
+        begSett(r, c);
+        for (int i = 0; i < r; i++) {
+            for (int j = 1; j < c; j++) {
+                formattedDouble = new DecimalFormat("#0.00").format(getRandomNum());
+                tableModel.setValueAt(formattedDouble, i, j);
+            }
+        }
+        jTable1.setModel(tableModel);
+//      
     }//GEN-LAST:event_jButton2ActionPerformed
     public float getRandomNum() {
-        Random r= new Random();
+        Random r = new Random();
         int a = (int) (Math.random() * 5);
         int b = (int) (Math.random() * 10);
-        
-        return r.nextFloat()+a;
+        return r.nextFloat() + a;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

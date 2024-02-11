@@ -10,8 +10,12 @@ package ru.compactcode.findforks;
  */
 public class FindEvent {
 
-    float[][] koeff = new float[2][3];
+ 
     float proffit = 0;
+
+    public FindEvent(float[][] koeff) {
+        int razmI = koeff.
+    }
 
     public FindEvent(float k11, float k11xk12, float k12, float k21, float k21xk22, float k22) {
 
@@ -39,16 +43,22 @@ public class FindEvent {
     //где Sp — вероятность в десятичной дроби, 
     //K1, K2, Kn — коэффициенты на выборы одного рынка, 
     //n – количество выборов на этом рынке.
-    public float getProfit2x() {
-
+    public float getProfit2x(int x1, int x2, int y1, int y2) {
+        int bookm1;
+        int bookm2;
         float win1k1b1 = 1 / koeff[0][0];
-        float win1k2b2 = 1 / koeff[1][2];
+        float win1k2b2 = 1 / koeff[2][1];
 
-        float win2k2b1 = 1 / koeff[0][2];
-        float win2k1b2 = 1 / koeff[1][0];
+        float win2k2b1 = 1 / koeff[0][1];
+        float win2k1b2 = 1 / koeff[2][0];
 
         float proffit = (1 / win1k1b1) + (1 / win1k2b2);
         return 1 - proffit;
 
     }
+
+    public float getProfitBookm() {
+        return 0;
+    }
+
 }
